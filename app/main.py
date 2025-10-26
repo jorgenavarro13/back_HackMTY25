@@ -26,10 +26,14 @@ app = FastAPI(title="AURA Risk API", version="0.2.0")
 storage.bootstrap()
 
 
-@app.get("/health")
+@app.get("/", include_in_schema=False)
+def root():
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(url="/docs")
+
+@app.get("/health", include_in_schema=False)
 def health():
     return {"status": "ok"}
-
 
 # ---------------------------
 # Helpers internos
